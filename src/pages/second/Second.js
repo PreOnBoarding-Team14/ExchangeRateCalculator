@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
 
 export default function Second() {
-  const country = ["USD", "CAD", "KRW", "HKD", "JPY", "CNY"];
+  const country = ['USD', 'CAD', 'KRW', 'HKD', 'JPY', 'CNY'];
   const [selected, setSelected] = useState(country[0]);
   const [tabs, setTabs] = useState(country.filter((e) => e !== selected));
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
-  const [input, setInput] = useState("0");
+  const [input, setInput] = useState('0');
   const [exchangeRate, setExchangeRate] = useState({});
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState('');
   const [dropdown, setDropDown] = useState(true);
 
   const ACCESS_KEY = process.env.REACT_APP_CURRENCY_KEY;
@@ -30,7 +30,7 @@ export default function Second() {
           CNY: res.data.quotes.USDCNY,
         });
         const timestamp = new Date(res.data.timestamp * 1000).toDateString();
-        const tempArr = timestamp.split(" ");
+        const tempArr = timestamp.split(' ');
         const year = tempArr[3];
         const month = tempArr[1];
         const day = tempArr[2];
@@ -38,7 +38,7 @@ export default function Second() {
       });
   };
 
-  const numInput = +input.split(",").join("");
+  const numInput = +input.split(',').join('');
   const result = +(
     numInput *
     (exchangeRate[selectedTab] / exchangeRate[selected])
@@ -65,15 +65,15 @@ export default function Second() {
   };
 
   const checkDecimal = (str) => {
-    if (str.includes(".")) {
-      const splited = str.split(".");
+    if (str.includes('.')) {
+      const splited = str.split('.');
       if (splited[1].length < 2) {
-        return str + "0";
+        return str + '0';
       } else {
         return str;
       }
     } else {
-      return str + ".00";
+      return str + '.00';
     }
   };
 
@@ -83,21 +83,21 @@ export default function Second() {
         <InputBox
           defaultValue={input}
           onChange={(e) => {
-            const num = +e.target.value.split(",").join("");
+            const num = +e.target.value.split(',').join('');
             e.target.value = num.toLocaleString();
           }}
           onBlur={(e) => {
-            const num = +e.target.value.split(",").join("");
+            const num = +e.target.value.split(',').join('');
             if (num > 1000) {
-              e.target.value = "1,000";
+              e.target.value = '1,000';
             }
             setInput(e.target.value);
           }}
           onKeyPress={(e) => {
-            if (e.code === "Enter") {
-              const num = +e.target.value.split(",").join("");
+            if (e.code === 'Enter') {
+              const num = +e.target.value.split(',').join('');
               if (num > 1000) {
-                e.target.value = "1,000";
+                e.target.value = '1,000';
               }
               setInput(e.target.value);
             }
@@ -163,7 +163,6 @@ const Box = styled.div`
   align-items: center;
   justify-content: center;
   border: 1px solid black;
-  box-sizing: border-box;
 `;
 
 const InputBox = styled.input`
@@ -179,22 +178,20 @@ const DropDownBox = styled.div`
 `;
 
 const SelectEle = styled.div`
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4rem;
   height: 2rem;
   border: 1px solid black;
-  border-bottom: ${(props) => (props.isSelected ? "none" : "")};
+  border-bottom: ${(props) => (props.isSelected ? 'none' : '')};
 `;
 
 const DropDownEle = styled.li`
   position: relative;
   z-index: 1000;
-  box-sizing: border-box;
   display: flex;
-  display: ${(props) => (props.dropdown ? "none" : "")};
+  display: ${(props) => (props.dropdown ? 'none' : '')};
   align-items: center;
   justify-content: center;
   width: 4rem;
@@ -224,14 +221,13 @@ const TapWrapper = styled.div`
 `;
 
 const Tab = styled.div`
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 3rem;
   height: 2rem;
   border: 1px solid black;
-  border-bottom: ${(props) => (props.isSelected ? "none" : "")};
+  border-bottom: ${(props) => (props.isSelected ? 'none' : '')};
 `;
 
 const Display = styled.div`
@@ -241,7 +237,6 @@ const Display = styled.div`
   width: 15rem;
   height: 15rem;
   border: 1px solid black;
-  box-sizing: border-box;
   border-top: none;
 `;
 
